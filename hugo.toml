@@ -1,4 +1,4 @@
-baseURL = 'https://johnponciano.github.io/simplesescovadordebits'
+baseURL = 'https://johnponciano.github.io/simplesescovadordebits/public/'
 languageCode = 'pt-br'
 title = 'Um Simples Escovador de Bits'
 theme="hello-friend"

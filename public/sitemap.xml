@@ -2,20 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://johnponciano.github.io/simplesescovadordebits/posts/mapbox&#43;nodejs/</loc>
+    <loc>https://johnponciano.github.io/simplesescovadordebits/public/posts/mapbox&#43;nodejs/</loc>
     <lastmod>2023-09-06T13:31:36-03:00</lastmod>
   </url><url>
-    <loc>https://johnponciano.github.io/simplesescovadordebits/posts/</loc>
+    <loc>https://johnponciano.github.io/simplesescovadordebits/public/posts/</loc>
     <lastmod>2023-09-06T13:31:36-03:00</lastmod>
   </url><url>
-    <loc>https://johnponciano.github.io/simplesescovadordebits/</loc>
+    <loc>https://johnponciano.github.io/simplesescovadordebits/public/</loc>
     <lastmod>2023-09-06T13:31:36-03:00</lastmod>
   </url><url>
-    <loc>https://johnponciano.github.io/simplesescovadordebits/posts/post/</loc>
+    <loc>https://johnponciano.github.io/simplesescovadordebits/public/posts/post/</loc>
     <lastmod>2023-09-06T12:55:23-03:00</lastmod>
   </url><url>
-    <loc>https://johnponciano.github.io/simplesescovadordebits/categories/</loc>
+    <loc>https://johnponciano.github.io/simplesescovadordebits/public/categories/</loc>
   </url><url>
-    <loc>https://johnponciano.github.io/simplesescovadordebits/tags/</loc>
+    <loc>https://johnponciano.github.io/simplesescovadordebits/public/tags/</loc>
   </url>
 </urlset>

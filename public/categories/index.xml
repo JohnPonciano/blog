@@ -5,12 +5,12 @@
     
     
     
-    <link>https://johnponciano.github.io/simplesescovadordebits/categories/</link>
+    <link>https://johnponciano.github.io/simplesescovadordebits/public/categories/</link>
     <description>Recent content in Categories on Um Simples Escovador de Bits</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
     
-	<atom:link href="https://johnponciano.github.io/simplesescovadordebits/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://johnponciano.github.io/simplesescovadordebits/public/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>

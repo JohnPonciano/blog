@@ -5,21 +5,21 @@
     
     
     
-    <link>https://johnponciano.github.io/simplesescovadordebits/</link>
+    <link>https://johnponciano.github.io/simplesescovadordebits/public/</link>
     <description>Recent content on Um Simples Escovador de Bits</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
     <lastBuildDate>Wed, 06 Sep 2023 13:31:36 -0300</lastBuildDate>
     
-	<atom:link href="https://johnponciano.github.io/simplesescovadordebits/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://johnponciano.github.io/simplesescovadordebits/public/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Mapbox&#43;Nodejs</title>
-      <link>https://johnponciano.github.io/simplesescovadordebits/posts/mapbox&#43;nodejs/</link>
+      <link>https://johnponciano.github.io/simplesescovadordebits/public/posts/mapbox&#43;nodejs/</link>
       <pubDate>Wed, 06 Sep 2023 13:31:36 -0300</pubDate>
       
-      <guid>https://johnponciano.github.io/simplesescovadordebits/posts/mapbox&#43;nodejs/</guid>
+      <guid>https://johnponciano.github.io/simplesescovadordebits/public/posts/mapbox&#43;nodejs/</guid>
       <description>
         
           
@@ -38,10 +38,10 @@ server.js
     
     <item>
       <title>Meu Ola Mundo</title>
-      <link>https://johnponciano.github.io/simplesescovadordebits/posts/post/</link>
+      <link>https://johnponciano.github.io/simplesescovadordebits/public/posts/post/</link>
       <pubDate>Wed, 06 Sep 2023 12:55:23 -0300</pubDate>
       
-      <guid>https://johnponciano.github.io/simplesescovadordebits/posts/post/</guid>
+      <guid>https://johnponciano.github.io/simplesescovadordebits/public/posts/post/</guid>
       <description>
         
           
