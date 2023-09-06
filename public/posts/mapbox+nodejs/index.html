@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Mapbox&#43;Nodejs :: Um Simples Escovador de Bits</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Desenferrujando meu NodeJS Vamos lá, recentemente achei umas vulnerabilidades no serviço de Geo da minha cidade, (Onde já reportei eo o pessoal já fez FIX, obs: Abraço Rafão) Então nessa brincadeirinha, fiz um dump dos marcos geodesicos de cameras da cidade, e assim criei um projetinho usando o MAPBOX pra organizar isso pra mim.
+Meu server foi feito em nodejs, mas nada muito fora do comum
+server.js
+const express = require(&amp;#39;express&amp;#39;); const path = require(&amp;#39;path&amp;#39;); const app = express(); const port = 3000; app." />
+<meta name="keywords" content=", " />
+
+  <meta name="robots" content="noodp" />
+
+<link rel="canonical" href="https://simplesescovadordebits.github.io/posts/mapbox&#43;nodejs/" />
+
+
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="https://simplesescovadordebits.github.io/css/blue-local.css">
+
+
+
+
+
+
+
+  <link rel="shortcut icon" href="https://simplesescovadordebits.github.io/img/theme-colors/blue.png">
+  <link rel="apple-touch-icon" href="https://simplesescovadordebits.github.io/img/theme-colors/blue.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Mapbox&#43;Nodejs">
+<meta property="og:description" content="Desenferrujando meu NodeJS Vamos lá, recentemente achei umas vulnerabilidades no serviço de Geo da minha cidade, (Onde já reportei eo o pessoal já fez FIX, obs: Abraço Rafão) Então nessa brincadeirinha, fiz um dump dos marcos geodesicos de cameras da cidade, e assim criei um projetinho usando o MAPBOX pra organizar isso pra mim.
+Meu server foi feito em nodejs, mas nada muito fora do comum
+server.js
+const express = require(&amp;#39;express&amp;#39;); const path = require(&amp;#39;path&amp;#39;); const app = express(); const port = 3000; app." />
+<meta property="og:url" content="https://simplesescovadordebits.github.io/posts/mapbox&#43;nodejs/" />
+<meta property="og:site_name" content="Um Simples Escovador de Bits" />
+
+  
+  
+  <meta property="og:image" content="https://simplesescovadordebits.github.io/">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+  <meta property="article:published_time" content="2023-09-06 13:31:36 -0300 -03" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="blue">
+
+
+<div class="container headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="https://simplesescovadordebits.github.io/">
+  <div class="logo">
+    Terminal
+  </div>
+</a>
+
+    </div>
+    
+    
+  </div>
+  
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="https://simplesescovadordebits.github.io/posts/mapbox&#43;nodejs/">Mapbox+Nodejs</a>
+  </h1>
+  <div class="post-meta"><time class="post-date">2023-09-06</time></div>
+
+  
+    <span class="post-tags">
+      
+      #<a href="https://simplesescovadordebits.github.io/tags/"></a>&nbsp;
+      
+      #<a href="https://simplesescovadordebits.github.io/tags/"></a>&nbsp;
+      
+    </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <h1 id="desenferrujando-meu-nodejs">Desenferrujando meu NodeJS<a href="#desenferrujando-meu-nodejs" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<h6 id="vamos-lá-recentemente-achei-umas-vulnerabilidades-no-serviço-de-geo-da-minha-cidade-onde-já-reportei-eo-o-pessoal-já-fez-fix-obs-abraço-rafão">Vamos lá, recentemente achei umas vulnerabilidades no serviço de Geo da minha cidade, (Onde já reportei eo o pessoal já fez FIX, obs: Abraço Rafão)<a href="#vamos-lá-recentemente-achei-umas-vulnerabilidades-no-serviço-de-geo-da-minha-cidade-onde-já-reportei-eo-o-pessoal-já-fez-fix-obs-abraço-rafão" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h6>
+<p>Então nessa brincadeirinha, fiz um dump dos marcos geodesicos de cameras da cidade, e assim criei um projetinho usando o MAPBOX pra organizar isso pra mim.</p>
+<p>Meu server foi feito em nodejs, mas nada muito fora do comum</p>
+<p>server.js</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">express</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;express&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">path</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;path&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">express</span>();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">port</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">3000</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">use</span>(<span style="color:#a6e22e">express</span>.<span style="color:#66d9ef">static</span>(<span style="color:#e6db74">&#39;public&#39;</span>));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;/radares&#39;</span>, (<span style="color:#a6e22e">req</span>, <span style="color:#a6e22e">res</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">filePath</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">join</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#39;app/sample.geojson&#39;</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">sendFile</span>(<span style="color:#a6e22e">filePath</span>);
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;/cameras&#39;</span>, (<span style="color:#a6e22e">req</span>, <span style="color:#a6e22e">res</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">filePath</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">join</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#39;app/dados_cameras.geojson&#39;</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">sendFile</span>(<span style="color:#a6e22e">filePath</span>);
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;/reconhecimento&#39;</span>, (<span style="color:#a6e22e">req</span>, <span style="color:#a6e22e">res</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">filePath</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">path</span>.<span style="color:#a6e22e">join</span>(<span style="color:#a6e22e">__dirname</span>, <span style="color:#e6db74">&#39;app/template_reconhecimento.geojson&#39;</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">sendFile</span>(<span style="color:#a6e22e">filePath</span>);
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">listen</span>(<span style="color:#a6e22e">port</span>, () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`Servidor rodando em http://localhost:</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">port</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><p>Enquanto isso eu fiz um HTML, usando a API do maxbox, pra gerar um mapa legal.</p>
+<p>public/index.html</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">title</span>&gt;Mapa com Mapbox&lt;/<span style="color:#f92672">title</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js&#39;</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css&#39;</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;stylesheet&#39;</span> /&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;preconnect&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://fonts.googleapis.com&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;preconnect&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://fonts.gstatic.com&#34;</span> <span style="color:#a6e22e">crossorigin</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://fonts.googleapis.com/css2?family=Roboto:wght@300&amp;display=swap&#34;</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">style</span>&gt;
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">body</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">margin</span>: <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    #map {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">position</span>: <span style="color:#66d9ef">absolute</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">top</span>: <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">bottom</span>: <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">70</span><span style="color:#66d9ef">%</span>;
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    #sidebar {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">font-family</span>: <span style="color:#e6db74">&#39;Roboto&#39;</span>, <span style="color:#66d9ef">sans-serif</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">position</span>: <span style="color:#66d9ef">absolute</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">top</span>: <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">right</span>: <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">bottom</span>: <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">width</span>: <span style="color:#ae81ff">30</span><span style="color:#66d9ef">%</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">background-color</span>: <span style="color:#ae81ff">#3e3e42</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">20</span><span style="color:#66d9ef">px</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">overflow-y</span>: <span style="color:#66d9ef">auto</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">color</span>: <span style="color:#66d9ef">whitesmoke</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">style</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#39;map&#39;</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sidebar&#34;</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">mapboxgl</span>.<span style="color:#a6e22e">accessToken</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;pk.eyJ1IjoiaGFra3UwMDEiLCJhIjoiY2ttb3Q0Z3FuMGV4cDJ1bGZ5ZTF3ZHB6YSJ9.xDnHMY98d1eRJTukvupWQg&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Inicializa o mapa
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">map</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">mapboxgl</span>.<span style="color:#a6e22e">Map</span>({
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">container</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;map&#39;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">style</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;mapbox://styles/mapbox/navigation-night-v1&#39;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">center</span><span style="color:#f92672">:</span> [<span style="color:#f92672">-</span><span style="color:#ae81ff">47.2963245563055</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">23.2607676472329</span>], <span style="color:#75715e">// Coordenadas de centro
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#a6e22e">zoom</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">9</span> <span style="color:#75715e">// Nível de zoom inicial
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">loadGeoJSONAndAddLayers</span>(<span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">color</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>)
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">response</span> =&gt; <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>())
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">data</span> =&gt; {
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">map</span>.<span style="color:#a6e22e">addSource</span>(<span style="color:#a6e22e">url</span>, {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;geojson&#39;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">data</span>
+</span></span><span style="display:flex;"><span>          });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>          <span style="color:#75715e">// Estiliza o GeoJSON
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>          <span style="color:#a6e22e">map</span>.<span style="color:#a6e22e">addLayer</span>({
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">id</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">url</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;circle&#39;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">source</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">url</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">paint</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>              <span style="color:#e6db74">&#39;circle-color&#39;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">color</span>,
+</span></span><span style="display:flex;"><span>              <span style="color:#e6db74">&#39;circle-radius&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">6</span>,
+</span></span><span style="display:flex;"><span>              <span style="color:#e6db74">&#39;circle-stroke-width&#39;</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>,
+</span></span><span style="display:flex;"><span>              <span style="color:#e6db74">&#39;circle-stroke-color&#39;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;#FFFFFF&#39;</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>          });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>          <span style="color:#75715e">// Adiciona um evento de clique para exibir dados no menu lateral
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>          <span style="color:#a6e22e">map</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;click&#39;</span>, <span style="color:#a6e22e">url</span>, <span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">e</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">properties</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">features</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">properties</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">geometry</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">features</span>[<span style="color:#ae81ff">0</span>].<span style="color:#a6e22e">geometry</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">sidebar</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;sidebar&#39;</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">sidebar</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&lt;h3&gt;Dados do Ponto&lt;/h3&gt;&#39;</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">sidebar</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">+=</span> <span style="color:#e6db74">`&lt;p&gt;Endereço: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">properties</span>.<span style="color:#a6e22e">endereco</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&lt;/p&gt;`</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">sidebar</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">+=</span> <span style="color:#e6db74">`&lt;p&gt;Observações: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">properties</span>.<span style="color:#a6e22e">observacoe</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&lt;/p&gt;`</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">sidebar</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">+=</span> <span style="color:#e6db74">`&lt;p&gt;Responsavel: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">properties</span>.<span style="color:#a6e22e">responsave</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">properties</span>.<span style="color:#a6e22e">responsavel</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&lt;/p&gt;`</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">sidebar</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">+=</span> <span style="color:#e6db74">`&lt;p&gt;Tipo: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">properties</span>.<span style="color:#a6e22e">tipo</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&lt;/p&gt;`</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">sidebar</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">+=</span> <span style="color:#e6db74">`&lt;p&gt;Lat: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">geometry</span>.<span style="color:#a6e22e">coordinates</span>[<span style="color:#ae81ff">0</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">&lt;/p&gt;`</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">sidebar</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">+=</span> <span style="color:#e6db74">`&lt;p&gt;Log: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">geometry</span>.<span style="color:#a6e22e">coordinates</span>[<span style="color:#ae81ff">1</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">&lt;/p&gt;`</span>
+</span></span><span style="display:flex;"><span>          });
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">map</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#39;load&#39;</span>, <span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">// Carrega e adiciona camadas para /radares
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#a6e22e">loadGeoJSONAndAddLayers</span>(<span style="color:#e6db74">&#39;/radares&#39;</span>, <span style="color:#e6db74">&#39;#FF0000&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">// Carrega e adiciona camadas para /cameras
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#a6e22e">loadGeoJSONAndAddLayers</span>(<span style="color:#e6db74">&#39;/cameras&#39;</span>, <span style="color:#e6db74">&#39;#00FF00&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">loadGeoJSONAndAddLayers</span>(<span style="color:#e6db74">&#39;/reconhecimento&#39;</span>, <span style="color:#e6db74">&#39;#4169E1&#39;</span>);
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div><p>E obvio, não vou soltar aqui os dados no post, mas tem um samples no meu Github, enfim é só isso mesmo time.
+Meu GitHub : <a href="https://github.com/JohnPonciano/ItuMapExploited/">https://github.com/JohnPonciano/ItuMapExploited/</a></p>
+<p>É isso Pessoal, Valeu!</p>
+
+      </div></div>
+
+  
+
+  
+    
+
+  
+</article>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2023 Powered by <a href="https://gohugo.io">Hugo</a></span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

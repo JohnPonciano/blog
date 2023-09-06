@@ -1,0 +1,4 @@
+baseURL = 'https://simplesescovadordebits.github.io/'
+languageCode = 'pt-br'
+title = 'Um Simples Escovador de Bits'
+theme="terminal"
