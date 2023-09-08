@@ -8,7 +8,7 @@ author = "Jonathan Ponciano"
 
 authorTwitter = "" #do not include @
 
-cover = ""
+cover = "https://cdna.artstation.com/p/assets/images/images/053/677/162/large/danielle-deku-tree.jpg?1662752618"
 
 tags = ["", ""]
 

@@ -1,9 +1,9 @@
 +++
 title = "Mapbox+Nodejs"
 date = "2023-09-06T13:31:36-03:00"
-author = ""
+author = "Jonathan Ponciano"
 authorTwitter = "" #do not include @
-cover = ""
+cover = "https://assets.website-files.com/5d3ef00c73102c436bc83996/5d3ef00c73102c893bc83a28_logo-regular.png"
 tags = ["", ""]
 keywords = ["", ""]
 description = ""
@@ -12,6 +12,7 @@ readingTime = false
 hideComments = false
 color = "blue" #color from the theme settings
 +++
+
 
 # Desenferrujando meu NodeJS
 
