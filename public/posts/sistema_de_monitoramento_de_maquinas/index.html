@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+      <title>
+        Sistema de Monitoramento de Maquinas - Parte 1 ::
+        Um Simples Escovador de Bits
+      </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta
+  name="description"
+  content="Sistema de Monitoramento de Maquinas - Parte 1 # Então vamos lá, estou atualmente testando minhas skill de front-end e back-end neste projeto de sistema de monitoramento de maquinas, que quem sabe se eu tiver tempo mais pra frente eu implemente um C2 de verdade para fazermos comando e controle remoto nas nossas maquinas com os agentes instalados.
+Falando em agents vamos começar com eles, no geral eu criei algo bem simples por enquanto, puxando dados básicos da maquina e fazendo um POST direto no nosso servidor :"
+/>
+<meta
+  name="keywords"
+  content=", "
+/>
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="https://johnponciano.github.io/simplesescovadordebits/public/posts/sistema_de_monitoramento_de_maquinas/" />
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/simplesescovadordebits/public/css/style.css" />
+
+<link rel="stylesheet" href="https://johnponciano.github.io/simplesescovadordebits/public/style.css" />
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://johnponciano.github.io/simplesescovadordebits/public/img/apple-touch-icon-144-precomposed.png" />
+<link rel="shortcut icon" href="https://johnponciano.github.io/simplesescovadordebits/public/img/favicon.png" />
+
+
+<link href="/simplesescovadordebits/public/fonts/Inter-Italic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="/simplesescovadordebits/public/fonts/Inter-Regular.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="/simplesescovadordebits/public/fonts/Inter-Medium.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="/simplesescovadordebits/public/fonts/Inter-MediumItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="/simplesescovadordebits/public/fonts/Inter-Bold.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+<link href="/simplesescovadordebits/public/fonts/Inter-BoldItalic.woff2" rel="preload" type="font/woff2" as="font" crossorigin="">
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Sistema de Monitoramento de Maquinas - Parte 1"/>
+<meta name="twitter:description" content="Sistema de Monitoramento de Maquinas - Parte 1 # Então vamos lá, estou atualmente testando minhas skill de front-end e back-end neste projeto de sistema de monitoramento de maquinas, que quem sabe se eu tiver tempo mais pra frente eu implemente um C2 de verdade para fazermos comando e controle remoto nas nossas maquinas com os agentes instalados.
+Falando em agents vamos começar com eles, no geral eu criei algo bem simples por enquanto, puxando dados básicos da maquina e fazendo um POST direto no nosso servidor :"/>
+
+
+
+<meta property="og:title" content="Sistema de Monitoramento de Maquinas - Parte 1" />
+<meta property="og:description" content="Sistema de Monitoramento de Maquinas - Parte 1 # Então vamos lá, estou atualmente testando minhas skill de front-end e back-end neste projeto de sistema de monitoramento de maquinas, que quem sabe se eu tiver tempo mais pra frente eu implemente um C2 de verdade para fazermos comando e controle remoto nas nossas maquinas com os agentes instalados.
+Falando em agents vamos começar com eles, no geral eu criei algo bem simples por enquanto, puxando dados básicos da maquina e fazendo um POST direto no nosso servidor :" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://johnponciano.github.io/simplesescovadordebits/public/posts/sistema_de_monitoramento_de_maquinas/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-09-09T12:11:51-03:00" />
+<meta property="article:modified_time" content="2023-09-09T12:11:51-03:00" />
+
+
+
+
+
+
+  </head>
+  <body >
+    <div class="container">
+      <header class="header">
+  <span class="header__inner">
+    <a
+  href="https://johnponciano.github.io/simplesescovadordebits/public/"
+  class="logo"
+  style="text-decoration: none;"
+>
+  
+    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367" />
+</svg>
+</span>
+    <span class="logo__text"
+      >hello friend</span
+    >
+    <span class="logo__cursor"></span>
+  
+</a>
+
+    <span class="header__right">
+      
+      <span class="theme-toggle">
+        <svg
+  class="theme-toggler"
+  width="24"
+  height="24"
+  viewBox="0 0 48 48"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22
+  3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7
+  13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z"
+  />
+</svg>
+
+      </span>
+    </span>
+  </span>
+</header>
+
+
+      <div class="content">
+        
+  
+  
+
+  <article class="post">
+    <h1 class="post-title">Sistema de Monitoramento de Maquinas - Parte 1</h1>
+    <div class="post-meta">
+      
+        <time class="post-date">
+          2023-09-09
+        </time>
+
+        
+          
+        
+      
+
+      
+        <span class="post-author"
+          >— Written by Jonathan Ponciano</span
+        >
+
+
+      
+    </div>
+
+    
+      <span class="post-tags">
+        
+          <a href="https://johnponciano.github.io/simplesescovadordebits/public/tags//">#</a>&nbsp;
+        
+          <a href="https://johnponciano.github.io/simplesescovadordebits/public/tags//">#</a>&nbsp;
+        
+      </span>
+    
+
+    
+      <figure class="post-cover">
+  
+    <img src="https://johnponciano.github.io/public/img/cover_hakkuc2.PNG" alt="Sistema de Monitoramento de Maquinas - Parte 1"/>
+  
+
+  
+</figure>
+
+    
+
+    <div class="post-content">
+      
+      <h2 id="sistema-de-monitoramento-de-maquinas---parte-1">
+  Sistema de Monitoramento de Maquinas - Parte 1
+  <a href="#sistema-de-monitoramento-de-maquinas---parte-1" class="h-anchor" aria-hidden="true">#</a>
+</h2>
+<p><img src="../../public/img/cover_hakkuc2.PNG" alt="image-20230909120212569"></p>
+<p>Então vamos lá, estou atualmente testando minhas skill de front-end e back-end neste projeto de sistema de monitoramento de maquinas, que quem sabe se eu tiver tempo mais pra frente eu implemente um C2 de verdade para fazermos comando e controle remoto nas nossas maquinas com os agentes instalados.</p>
+<p>Falando em agents vamos começar com eles, no geral eu criei algo bem simples por enquanto, puxando dados básicos da maquina e fazendo um POST direto no nosso servidor :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">agent</span>.<span style="color:#a6e22e">js</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">axios</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;axios&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">os</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;os&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">getExternalIp</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;external-ip&#39;</span>)();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Função para coletar informações da máquina
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">coletarInformacoesDaMaquina</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dadosMaquina</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">nome</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">hostname</span>(),
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">plataforma</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">platform</span>(),
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sistemaOS</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">type</span>(),
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">arquitetura</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">arch</span>(),
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">memoriaTotal</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">totalmem</span>(),
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">memoriaLivre</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">freemem</span>(),
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// Obtém o IP externo da máquina (requer uma conexão com a internet)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">getExternalIp</span>((<span style="color:#a6e22e">err</span>, <span style="color:#a6e22e">ip</span>) =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">err</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#e6db74">&#39;Erro ao obter o IP externo:&#39;</span>, <span style="color:#a6e22e">err</span>);
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">dadosMaquina</span>.<span style="color:#a6e22e">ipExterno</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ip</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">enviarDadosParaServidorCentral</span>(<span style="color:#a6e22e">dadosMaquina</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// Obtém o IP interno da máquina
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">interfaces</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">networkInterfaces</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">interfaceName</span> <span style="color:#66d9ef">of</span> Object.<span style="color:#a6e22e">keys</span>(<span style="color:#a6e22e">interfaces</span>)) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">interface</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">interfaces</span>[<span style="color:#a6e22e">interfaceName</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">addressInfo</span> <span style="color:#66d9ef">of</span> <span style="color:#66d9ef">interface</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">addressInfo</span>.<span style="color:#a6e22e">family</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;IPv4&#39;</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">addressInfo</span>.<span style="color:#a6e22e">internal</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">dadosMaquina</span>.<span style="color:#a6e22e">ipInterno</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">addressInfo</span>.<span style="color:#a6e22e">address</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">dadosMaquina</span>.<span style="color:#a6e22e">ipInterno</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">dadosMaquina</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// URL do servidor central
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">servidorCentralURL</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;http://localhost:3001/receber-dados&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Função para enviar os dados ao servidor central
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">enviarDadosParaServidorCentral</span>(<span style="color:#a6e22e">dadosDaMaquina</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">axios</span>
+</span></span><span style="display:flex;"><span>    .<span style="color:#a6e22e">post</span>(<span style="color:#a6e22e">servidorCentralURL</span>, <span style="color:#a6e22e">dadosDaMaquina</span>)
+</span></span><span style="display:flex;"><span>    .<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">response</span>) =&gt; {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Dados enviados com sucesso para o servidor central.&#39;</span>);
+</span></span><span style="display:flex;"><span>    })
+</span></span><span style="display:flex;"><span>    .<span style="color:#66d9ef">catch</span>((<span style="color:#a6e22e">error</span>) =&gt; {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#e6db74">&#39;Erro ao enviar dados para o servidor central:&#39;</span>, <span style="color:#a6e22e">error</span>);
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Configurar um temporizador para enviar dados a cada intervalo (por exemplo, a cada 5 segundos)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">intervaloDeEnvio</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">5000</span>; <span style="color:#75715e">// 5 segundos
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">setInterval</span>(<span style="color:#a6e22e">coletarInformacoesDaMaquina</span>, <span style="color:#a6e22e">intervaloDeEnvio</span>);
+</span></span></code></pre></div><p>Agora vamos pro nosso servidor, mas de ante mão é bom eu ressaltar que enquanto eu escrevo este post, eu estava testando uma funcionalidade para verificar ultimo intervalo de envio do agent, para gente ter um status, de quais maquinas estão online ou offline.</p>
+<p>Em suma, a gente recebe os dados que foram feito os POST pelo agent, e ajustamos alguns parametros, como memoria RAM, onde ajustamos para ser interpretada como GB, e o salvamento das informações em um JSON, pq eu tava com preguiça de fazer um sqlite ou um postgres pra um projeto pequeno desse.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">express</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;express&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">bodyParser</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;body-parser&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fs</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;fs&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">v4</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">uuidv4</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;uuid&#39;</span>); <span style="color:#75715e">// Importe a função uuidv4 da biblioteca uuid
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cors</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;cors&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">express</span>();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">port</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">3001</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">use</span>(<span style="color:#a6e22e">bodyParser</span>.<span style="color:#a6e22e">json</span>());
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">use</span>(<span style="color:#a6e22e">cors</span>())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Função para converter bytes para gigabytes (GB)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">bytesParaGB</span>(<span style="color:#a6e22e">bytes</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (<span style="color:#a6e22e">bytes</span> <span style="color:#f92672">/</span> (<span style="color:#ae81ff">1024</span> <span style="color:#f92672">**</span> <span style="color:#ae81ff">3</span>)).<span style="color:#a6e22e">toFixed</span>(<span style="color:#ae81ff">2</span>); <span style="color:#75715e">// 1 GB = 1024^3 bytes
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Endpoint para receber os dados das máquinas
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">post</span>(<span style="color:#e6db74">&#39;/receber-dados&#39;</span>, (<span style="color:#a6e22e">req</span>, <span style="color:#a6e22e">res</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">newData</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">body</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Novos dados recebidos:&#39;</span>, <span style="color:#a6e22e">newData</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// Ler o arquivo JSON existente (se existir)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> [];
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">rawData</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFileSync</span>(<span style="color:#e6db74">&#39;dados.json&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">parse</span>(<span style="color:#a6e22e">rawData</span>);
+</span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">error</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Se o arquivo não existe, apenas continue com um array vazio
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// Verificar se já existe um registro com o mesmo nome (Maquina A, Maquina B)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">existingDataIndex</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">findIndex</span>((<span style="color:#a6e22e">item</span>) =&gt; <span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">nome</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">newData</span>.<span style="color:#a6e22e">nome</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">existingDataIndex</span> <span style="color:#f92672">!==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Atualizar os dados existentes
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">existingData</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>[<span style="color:#a6e22e">existingDataIndex</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">existingData</span>.<span style="color:#a6e22e">plataforma</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">newData</span>.<span style="color:#a6e22e">plataforma</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">existingData</span>.<span style="color:#a6e22e">sistemaOS</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">newData</span>.<span style="color:#a6e22e">sistemaOS</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">existingData</span>.<span style="color:#a6e22e">arquitetura</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">newData</span>.<span style="color:#a6e22e">arquitetura</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">existingData</span>.<span style="color:#a6e22e">memoriaTotal</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">bytesParaGB</span>(<span style="color:#a6e22e">newData</span>.<span style="color:#a6e22e">memoriaTotal</span>); <span style="color:#75715e">// Converter para GB
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">existingData</span>.<span style="color:#a6e22e">memoriaLivre</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">bytesParaGB</span>(<span style="color:#a6e22e">newData</span>.<span style="color:#a6e22e">memoriaLivre</span>); <span style="color:#75715e">// Converter para GB
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// Adicione os IPs interno e externo ao registro existente
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">existingData</span>.<span style="color:#a6e22e">ipInterno</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">newData</span>.<span style="color:#a6e22e">ipInterno</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">existingData</span>.<span style="color:#a6e22e">ipExterno</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">newData</span>.<span style="color:#a6e22e">ipExterno</span>;
+</span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Adicionar novo registro com um ID único
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">newMachine</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">id</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">uuidv4</span>(), <span style="color:#75715e">// Gere um ID único
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      ...<span style="color:#a6e22e">newData</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">memoriaTotal</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">bytesParaGB</span>(<span style="color:#a6e22e">newData</span>.<span style="color:#a6e22e">memoriaTotal</span>), <span style="color:#75715e">// Converter para GB
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#a6e22e">memoriaLivre</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">bytesParaGB</span>(<span style="color:#a6e22e">newData</span>.<span style="color:#a6e22e">memoriaLivre</span>), <span style="color:#75715e">// Converter para GB
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#a6e22e">online</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">lastUpdate</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">new</span> Date(),
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Adicione os IPs interno e externo ao novo registro
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">newMachine</span>.<span style="color:#a6e22e">ipInterno</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">newData</span>.<span style="color:#a6e22e">ipInterno</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">newMachine</span>.<span style="color:#a6e22e">ipExterno</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">newData</span>.<span style="color:#a6e22e">ipExterno</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">newMachine</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// Salvar os dados atualizados no arquivo JSON
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">writeFileSync</span>(<span style="color:#e6db74">&#39;dados.json&#39;</span>, <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">data</span>));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">send</span>(<span style="color:#e6db74">&#39;Dados recebidos com sucesso!&#39;</span>);
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Função para verificar o status online das máquinas
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">verificarStatusOnline</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">parse</span>(<span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFileSync</span>(<span style="color:#e6db74">&#39;dados.json&#39;</span>));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">limiteDeInatividade</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">60</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>; <span style="color:#75715e">// 10 minutos de inatividade
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">machine</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">data</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">agora</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Date();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">tempoDesdeUltimaAtualizacao</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">agora</span> <span style="color:#f92672">-</span> <span style="color:#66d9ef">new</span> Date(<span style="color:#a6e22e">machine</span>.<span style="color:#a6e22e">lastUpdate</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">tempoDesdeUltimaAtualizacao</span> <span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">limiteDeInatividade</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">// A máquina está offline
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#a6e22e">machine</span>.<span style="color:#a6e22e">online</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">// A máquina está online
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#a6e22e">machine</span>.<span style="color:#a6e22e">online</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// Salve os dados atualizados
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">writeFileSync</span>(<span style="color:#e6db74">&#39;dados.json&#39;</span>, <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">data</span>));
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Agende a verificação do status online a cada intervalo (por exemplo, a cada 1 minuto)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">intervaloDeVerificacao</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">60</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1000</span>; <span style="color:#75715e">// 1 minuto
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">setInterval</span>(<span style="color:#a6e22e">verificarStatusOnline</span>, <span style="color:#a6e22e">intervaloDeVerificacao</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Endpoint para listar todos os dados
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;/dados&#39;</span>, (<span style="color:#a6e22e">req</span>, <span style="color:#a6e22e">res</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">rawData</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFileSync</span>(<span style="color:#e6db74">&#39;dados.json&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">parse</span>(<span style="color:#a6e22e">rawData</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">json</span>(<span style="color:#a6e22e">data</span>);
+</span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">error</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">status</span>(<span style="color:#ae81ff">500</span>).<span style="color:#a6e22e">send</span>(<span style="color:#e6db74">&#39;Erro ao buscar dados.&#39;</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Endpoint para listar dados com base em um ID
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#39;/dados/:id&#39;</span>, (<span style="color:#a6e22e">req</span>, <span style="color:#a6e22e">res</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">id</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">params</span>.<span style="color:#a6e22e">id</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">rawData</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fs</span>.<span style="color:#a6e22e">readFileSync</span>(<span style="color:#e6db74">&#39;dados.json&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">parse</span>(<span style="color:#a6e22e">rawData</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">matchingData</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">find</span>((<span style="color:#a6e22e">item</span>) =&gt; <span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">id</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">id</span>); <span style="color:#75715e">// Procura por ID, não mais por nome
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">matchingData</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">json</span>(<span style="color:#a6e22e">matchingData</span>);
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">status</span>(<span style="color:#ae81ff">404</span>).<span style="color:#a6e22e">send</span>(<span style="color:#e6db74">&#39;Dados não encontrados.&#39;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">error</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">status</span>(<span style="color:#ae81ff">500</span>).<span style="color:#a6e22e">send</span>(<span style="color:#e6db74">&#39;Erro ao buscar dados.&#39;</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">listen</span>(<span style="color:#a6e22e">port</span>, () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`Servidor rodando na porta http://localhost:</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">port</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><p>Em suma por enquanto é isto, backend está basicamente funcional para nosso objetivo que no proximo post, vai ser criar um front-end descente, mas ai fica no ar, eu sei fazer? Claramente não, mas vou tentar fazer alguma coisa usando NextJS já que no nosso TodoList lá no github, a gente tem pagina de login e auth de usuarios, somado depois com criação de agents, nativos para sistemas operacionais.</p>
+<p>Conhecido também como PS1 que você coloca no AD, e já roda na maquina de todomundo.</p>
+
+    </div>
+    
+
+    
+      
+    
+  </article>
+
+      </div>
+
+      
+        <footer class="footer">
+  <div class="footer__inner">
+    
+      <a
+  href="https://johnponciano.github.io/simplesescovadordebits/public/"
+  class="logo"
+  style="text-decoration: none;"
+>
+  
+    <span class="logo__mark"><svg xmlns="http://www.w3.org/2000/svg" class="greater-icon" viewBox="0 0 44 44">
+  <path fill="none" d="M15 8l14.729 14.382L15 35.367" />
+</svg>
+</span>
+    <span class="logo__text"
+      >hello friend</span
+    >
+    <span class="logo__cursor"></span>
+  
+</a>
+
+      <div class="copyright">
+        <span>© 2023 Powered by <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a></span>
+        <span><a href="https://github.com/panr/hugo-theme-hello-friend" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+    
+  </div>
+</footer>
+
+
+
+
+
+<script type="text/javascript" src="/simplesescovadordebits/public/bundle.min.js"></script>
+
+
+      
+    </div>
+
+    
+  </body>
+</html>
