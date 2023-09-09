@@ -8,7 +8,7 @@ author = "Jonathan Ponciano"
 
 authorTwitter = "" #do not include @
 
-cover = "../../public/img/cover_hakkuc2.PNG"
+cover = "https://johnponciano.github.io/simplesescovadordebits/public/img/cover_hakkuc2.PNG"
 
 tags = ["", ""]
 
@@ -28,7 +28,7 @@ color = "blue" #color from the theme settings
 
 ## Sistema de Monitoramento de Maquinas - Parte 1
 
-![image-20230909120212569](../../public/img/cover_hakkuc2.PNG)
+![image-20230909120212569](https://johnponciano.github.io/simplesescovadordebits/public/img/cover_hakkuc2.PNG)
 
 Então vamos lá, estou atualmente testando minhas skill de front-end e back-end neste projeto de sistema de monitoramento de maquinas, que quem sabe se eu tiver tempo mais pra frente eu implemente um C2 de verdade para fazermos comando e controle remoto nas nossas maquinas com os agentes instalados. 
 
